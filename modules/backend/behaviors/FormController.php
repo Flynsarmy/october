@@ -471,7 +471,7 @@ class FormController extends ControllerBehavior
         }
 
         if (post('redirect', true)) {
-            $redirectUrl = $this->getRedirectUrl($context);
+            $redirectUrl = $this->controller->formGetRedirectUrl($context, $model);
         }
 
         if ($model && $redirectUrl) {
@@ -494,9 +494,10 @@ class FormController extends ControllerBehavior
      * supplied context. Otherwise the default redirect is used.
      *
      * @param string $context Redirect context, eg: create, update, delete.
+     * @param Model $model The active model.
      * @return string
      */
-    protected function getRedirectUrl($context = null)
+    public function formGetRedirectUrl($context = null, $model = null)
     {
         $redirectContext = explode('-', $context, 2)[0];
         $redirectSource = ends_with($context, '-close') ? 'redirectClose' : 'redirect';
